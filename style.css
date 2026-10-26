@@ -1409,3 +1409,17 @@ html[data-theme] .shop #s-intro #sl1 .sw{display:inline-block;width:.5rem;height
 @media(min-width:900px) and (max-height:720px){html[data-theme] .shop #s-intro #sl1 .cols{--sq:min(22rem,36dvh,calc((100vw - 8.5rem)/2))}}
 /* picture tiles: no light hairline around the picture */
 html[data-theme] .shop :is(.bt,.lc,.sty).has-img{background-clip:padding-box}
+
+/* ===== round 8: the 2D mockup always draws the light way, whatever the performance setting =====
+   No blend modes, no filters, no animation and no standing GPU layers on the shirt preview. A design gets its own
+   layer only while it is being moved (see place/settle), so dragging never repaints the shirt underneath. */
+/* print area, center lines, grid and snap guides: a light line with a thin dark edge, readable on every shirt color */
+html[data-theme] .shop .stage .pz{mix-blend-mode:normal;opacity:1;background:none;border:1.5px solid rgba(255,255,255,.92);box-shadow:0 0 0 1px rgba(0,0,0,.26),inset 0 0 0 1px rgba(0,0,0,.16)}
+html[data-theme] .shop .stage .pz::before,html[data-theme] .shop .stage .pz::after{background:rgba(255,255,255,.62);opacity:1;box-shadow:0 0 0 .5px rgba(0,0,0,.22)}
+html[data-theme] .shop .stage .pz.grid{background-image:linear-gradient(rgba(0,0,0,.2) 1px,rgba(255,255,255,.42) 1px 2px,transparent 2px),linear-gradient(90deg,rgba(0,0,0,.2) 1px,rgba(255,255,255,.42) 1px 2px,transparent 2px)}
+html[data-theme] .shop .stage .gd{mix-blend-mode:normal;background:var(--t,#28d0d0);box-shadow:0 0 0 .5px rgba(0,0,0,.4);transition:none}
+html[data-theme] .shop .stage .it{will-change:auto;backface-visibility:visible}
+html[data-theme] .shop .stage,html[data-theme] .shop .stage *,html[data-theme] .shop .stage *::before,html[data-theme] .shop .stage *::after{animation:none!important}
+/* the design pages: the header logo keeps its motion without a blur filter, and the bars do not blur what is behind them */
+html[data-theme] .shop :is(#s-cust,#s-edit,#s-rev) .hlogo .g{filter:none!important}
+html[data-theme] .shop :is(#s-cust,#s-edit,#s-rev) :is(.glass,.topbar,.actbar){-webkit-backdrop-filter:none!important;backdrop-filter:none!important}

@@ -637,7 +637,7 @@ PF.tier='mid';function applyTier(t){PF.tier=t;document.documentElement.dataset.t
 function perfSave(tier){try{localStorage.sh_perf=JSON.stringify({tier,mode:PF.mode,ts:Date.now()})}catch(e){}}
 function perfUI(){
   $$('#pf button').forEach(b=>b.classList.toggle('on',b.dataset.m===PF.mode));
-  const n=$('#pfNote');if(n)n.textContent=PF.mode==='auto'?`Auto: this device was tested as ${PF.tier==='high'?'full':PF.tier==='mid'?'balanced':'lite'}.`:PF.mode==='high'?'Full effects are on.':'Lite mode is on for the smoothest speed.';
+  const n=$('#pfNote');if(n)n.textContent=PF.mode==='auto'?`Auto: this device was tested as ${PF.tier==='high'?'full':PF.tier==='mid'?'balanced':'lite'}.`:PF.mode==='high'?'Full effects are on. The 2D design view always stays light for smooth dragging.':'Lite mode is on for the smoothest speed.';
 }
 function perfInit(){
   let s=null;try{s=JSON.parse(localStorage.sh_perf||'null')}catch(e){}
@@ -1171,6 +1171,7 @@ function flash(){const el=$(`#stage .it[data-i="${SEL}"]`);if(!el)return;el.clas
 function place(it){   // moves/resizes/rotates with the GPU only: left/top/width stay as drawn, a transform carries the difference
   const el=$(`#stage .it[data-i="${SEL}"]`);if(!el)return;
   const bw=+el.dataset.w;if(!bw){el.style.cssText=itPos(it);return}
+  el.style.willChange='transform';   // a layer of its own only while it moves; settle() clears it
   el.style.transform=`translate(${(it.x-el.dataset.x)*stg.clientWidth}px,${(it.y-el.dataset.y)*stg.clientHeight}px) translate(-50%,-50%) rotate(${it.r}deg) scale(${it.w/bw})`;
 }
 function settle(){   // gesture finished: bake the transform into real left/top/width without rebuilding the stage

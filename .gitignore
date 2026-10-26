@@ -1,0 +1,9 @@
+# secrets and local files: never commit these
+.env
+*.env
+backend/.env
+backend/.venv/
+backend/data/
+backend/_testdata/
+__pycache__/
+.DS_Store

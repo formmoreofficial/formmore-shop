@@ -1,0 +1,4 @@
+# Vercel only hosts the website. The server code and the build sources stay off the public site.
+backend
+_src
+README.md
